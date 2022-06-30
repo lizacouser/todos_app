@@ -1,3 +1,5 @@
 node_modules
 session-store.db
 lib/users.sql
+.DS_Store
+lib/users.js
