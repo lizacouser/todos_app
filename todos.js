@@ -1,11 +1,12 @@
 const express = require("express");
 const morgan = require("morgan");
+const config = require("./lib/config");
 const flash = require("express-flash");
 const session = require("express-session");
 const { body, validationResult } = require("express-validator");
 const store = require("connect-loki");
-// const PgPersistence = require("./lib/pg-persistence");
-const SessionPersistence = require("./lib/session-persistence");
+const PgPersistence = require("./lib/pg-persistence");
+// const SessionPersistence = require("./lib/session-persistence");
 const catchError = require("./lib/catch-error");
 
 const app = express();
@@ -37,8 +38,8 @@ app.use(flash());
 
 // Create a new datastore
 app.use((req,res, next) => {
-  // res.locals.store = new PgPersistence(req.session);
-  res.locals.store = new SessionPersistence(req.session);
+  res.locals.store = new PgPersistence(req.session);
+  // res.locals.store = new SessionPersistence(req.session);
   next();
 })
 
